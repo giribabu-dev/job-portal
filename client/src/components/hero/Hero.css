@@ -1,0 +1,15 @@
+#heroComp_heading {
+    font-size: 35px;
+    font-weight: 500;
+}
+#heroComp_content {
+    font-size: 13px;
+    width: 550px;
+    text-align: center;
+    margin: 15px auto;
+}
+#heroComp_searchCont {
+    width: 600px;
+   background-color: #fff;
+   color: #000;
+}
