@@ -1,24 +1,36 @@
 import { assets } from "../../assets/assets";
-import "./Hero.css";
+// import "./Hero.css";
 
 function Hero() {
     return (
         <div className="container 2xl:px-20 my-10 mx-auto">
-            <div className="bg-gradient-to-r from-purple-800 to-purple-950 text-white text-center py-18 rounded-md">
-                <h1 id="heroComp_heading">Over 10,000+ jobs to apply</h1>
-                <p id="heroComp_content">
+            <div className="bg-gradient-to-r from-purple-800 to-purple-950 text-white text-center py-16 mx-2 rounded-xl">
+                <h2 id="heroComp_heading" className="text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Over 10,000+ jobs to apply</h2>
+                <p id="heroComp_content" className="mb-8 max-w-xl mx-auto text-sm font-light px-5">
                     Your Next Big Career Move Starts Right Here - Explore the Best Job Opportunities and Take the First Step Toward Your Future!
                 </p>
-                <div className="flex justify-between items-center mx-auto rounded-sm py-2 px-3" id="heroComp_searchCont">
+                <div className="flex justify-between items-center bg-white rounded text-gray-600 max-w-xl pl-4 mx-4 sm:mx-auto" id="heroComp_searchCont">
                     <div className="flex items-center">
-                        <img src={assets.search_icon} alt="" />
-                        <input type="text" placeholder="Search for jobs" className="outline-none ml-1" />
+                        <img src={assets.search_icon} alt="" className="h-4 sm:h-5" />
+                        <input type="text" placeholder="Search for jobs" className="max-sm:text-xs p-2 rounded outline-none w-full" />
                     </div>
                     <div className="flex items-center">
-                        <img src={assets.location_icon} alt="" />
-                        <input src="text" placeholder="Location" className="outline-none ml-1" />
+                        <img src={assets.location_icon} alt="" className="h-4 sm:h-5" />
+                        <input src="text" placeholder="Location" className="max-sm:text-xs p-2 rounded outline-none w-full" />
                     </div>
-                    <button>Search</button>
+                    <button className="bg-blue-600 px-6 py-2 rounded text-white m-1">Search</button>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <p>Trusted by</p>
+                    <img src={assets.microsoft_logo} alt="" />
+                    <img src={assets.walmart_logo} alt="" />
+                    <img src={assets.accenture_logo} alt="" />
+                    <img src={assets.samsung_logo} alt="" />
+                    <img src={assets.amazon_logo} alt="" />
+                    <img src={assets.adobe_logo} alt="" />
                 </div>
             </div>
         </div>
