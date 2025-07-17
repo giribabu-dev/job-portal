@@ -16,8 +16,6 @@ function Hero() {
             location: locationRef.current.value
         });
         setIsSearched(true);
-
-        console.log(searchFilter);
     };
 
     return (
@@ -38,7 +36,7 @@ function Hero() {
                         <input src="text" placeholder="Location" className="max-sm:text-xs p-2 rounded outline-none w-full"
                             ref={locationRef} />
                     </div>
-                    <button className="bg-blue-600 px-6 py-2 rounded text-white m-1" onClick={onSearch}>
+                    <button className="bg-blue-600 px-6 py-2 rounded text-white m-1 cursor-pointer" onClick={onSearch}>
                         Search
                     </button>
                 </div>
