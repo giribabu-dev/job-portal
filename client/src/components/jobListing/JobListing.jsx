@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import { assets, JobCategories, JobLocations } from "../../assets/assets";
-
+import { assets, JobCategories, JobLocations, jobsData } from "../../assets/assets";
+import JobCard from "../jobCard/JobCard";
 
 function JobListing() {
 
@@ -52,7 +52,7 @@ function JobListing() {
 
                 {/* Location Filter */}
                 <div className="max-lg:hidden">
-                    <h4 className="font-medium text-lg py-4">Search by Location</h4>
+                    <h4 className="font-medium text-lg py-4 pt-14">Search by Location</h4>
                     <ul className="text-gray-600 space-y-4">
                         {JobLocations.map((location, index)=> (
                             <li key={index} className="flex items-center gap-3">
@@ -68,7 +68,11 @@ function JobListing() {
             <section className="w-full lg:w-3/4 text-gray-800 max-lg:px-4">
                 <h3 className="font-medium text-3xl py-2" id="job-list">Latest Jobs</h3>
                 <p className="mb-8">Get your desired job from top companies</p>
-
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {jobsData.map((job, index) => (
+                        <JobCard key={index} job={job} />
+                    ))}
+                </div>
             </section>
         </div>
     )
