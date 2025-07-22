@@ -1,11 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { assets, JobCategories, JobLocations, jobsData } from "../../assets/assets";
+import { assets, JobCategories, JobLocations } from "../../assets/assets";
 import JobCard from "../jobCard/JobCard";
 
 function JobListing() {
 
-    const { isSearched, searchFilter, setSearchFilter } = useContext(AppContext);
+    const { isSearched, searchFilter, setSearchFilter, jobs } = useContext(AppContext);
+
+    const [showFilter, setShowFilter] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     return (
         <div className="container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
@@ -37,8 +40,12 @@ function JobListing() {
                     )
                 }
 
+                <button className="lg:hidden border border-gray-400 rounded px-6 py-1.5" onClick={()=> setShowFilter(!showFilter)}>
+                    {showFilter ? "Close" : "Filters"}
+                </button>
+
                 {/* Category Filter */}
-                <div className="max-lg:hidden">
+                <div className={showFilter ? "" : "max-lg:hidden"}>
                     <h4 className="font-medium text-lg py-4">Search by Categories</h4>
                     <ul className="space-y-4 text-gray-600">
                         { JobCategories.map((category, index) => (
@@ -51,7 +58,7 @@ function JobListing() {
                 </div>
 
                 {/* Location Filter */}
-                <div className="max-lg:hidden">
+                <div className={showFilter ? "" : "max-lg:hidden"}>
                     <h4 className="font-medium text-lg py-4 pt-14">Search by Location</h4>
                     <ul className="text-gray-600 space-y-4">
                         {JobLocations.map((location, index)=> (
@@ -69,10 +76,21 @@ function JobListing() {
                 <h3 className="font-medium text-3xl py-2" id="job-list">Latest Jobs</h3>
                 <p className="mb-8">Get your desired job from top companies</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                    {jobsData.map((job, index) => (
+                    {jobs.map((job, index) => (
                         <JobCard key={index} job={job} />
                     ))}
                 </div>
+
+                {/* Pagination */}
+                {jobs.length > 0 && (
+                    <div>
+                        <a>
+                            <img src={assets.left_arrow_icon} alt="" />
+                        </a>
+                        {Array.from({length: Math.ceil(jobs.length/6)}).map()}
+                    </div>
+                )}
+
             </section>
         </div>
     )
