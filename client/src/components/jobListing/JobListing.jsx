@@ -5,11 +5,15 @@ import JobCard from "../jobCard/JobCard";
 
 function JobListing() {
 
-    const { isSearched, searchFilter, setSearchFilter, jobs } = useContext(AppContext);
+    const { isSearched, searchFilter, setSearchFilter, jobs } = useContext(AppContext)
 
-    const [showFilter, setShowFilter] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(jobs.length / 6);
+    const [showFilter, setShowFilter] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(jobs.length / 6)
+    const [selectedCategories, setSelectedCategories] = useState([])
+    const [selectedLocations, setSelectedLocations] = useState([])
+
+    const [filteredJobs, setFilteredJobs] = useState(jobs)
 
     const handleToPreviousPage = () => {
         if (currentPage > 1) {
@@ -17,8 +21,8 @@ function JobListing() {
         }
     };
 
-    const handleToNextPage = ()=> {
-        if(currentPage < totalPages){
+    const handleToNextPage = () => {
+        if (currentPage < totalPages) {
             setCurrentPage(prev => prev + 1);
         }
     };

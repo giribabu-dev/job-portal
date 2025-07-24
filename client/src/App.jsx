@@ -1,10 +1,10 @@
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import ApplyJob from "./pages/ApplyJob";
 import Applications from "./pages/Applications";
 
-function App(){
+function App() {
   return (
     <>
       <Routes>
