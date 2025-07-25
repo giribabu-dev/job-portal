@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import { assets, JobCategories, JobLocations } from "../../assets/assets";
 import JobCard from "../jobCard/JobCard";
@@ -26,6 +26,22 @@ function JobListing() {
             setCurrentPage(prev => prev + 1);
         }
     };
+
+    const handleCategoryFilters = (category)=> {
+        setSelectedCategories(
+            prev => prev.includes(category) ? prev.filter(cat => cat !== category) : [...prev, category]
+        );
+    };
+
+    const handleLocationFilters = (location)=> {
+        setSelectedLocations(
+            prev => prev.includes(location) ? prev.filter(loc => loc !== location) : [...prev, location]
+        );
+    };
+
+    useEffect(()=> {
+        
+    }, [selectedCategories, selectedLocations]);
 
     return (
         <div className="container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
@@ -67,7 +83,9 @@ function JobListing() {
                     <ul className="space-y-4 text-gray-600">
                         {JobCategories.map((category, index) => (
                             <li key={index} className="flex items-center gap-3">
-                                <input type="checkbox" className="scale-125" />
+                                <input type="checkbox" className="scale-125" value={selectedCategories}
+                                    onClick={()=> handleCategoryFilters(category)}
+                                    checked={selectedCategories.includes(category)} />
                                 {category}
                             </li>
                         ))}
@@ -80,7 +98,9 @@ function JobListing() {
                     <ul className="text-gray-600 space-y-4">
                         {JobLocations.map((location, index) => (
                             <li key={index} className="flex items-center gap-3">
-                                <input type="checkbox" className="scale-125" />
+                                <input type="checkbox" className="scale-125" value={selectedLocations}
+                                    onClick={()=> handleLocationFilters(location)}
+                                    checked={selectedLocations.includes(location)} />
                                 {location}
                             </li>
                         ))}
