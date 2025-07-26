@@ -27,19 +27,19 @@ function JobListing() {
         }
     };
 
-    const handleCategoryFilters = (category)=> {
+    const handleCategoryFilters = (category) => {
         setSelectedCategories(
             prev => prev.includes(category) ? prev.filter(cat => cat !== category) : [...prev, category]
         );
     };
 
-    const handleLocationFilters = (location)=> {
+    const handleLocationFilters = (location) => {
         setSelectedLocations(
             prev => prev.includes(location) ? prev.filter(loc => loc !== location) : [...prev, location]
         );
     };
 
-    useEffect(()=> {
+    useEffect(() => {
 
         const filterJobsBySearchTitle = job => searchFilter.title === "" || job.title.toLowerCase().includes(searchFilter.title.toLowerCase());
 
@@ -99,7 +99,7 @@ function JobListing() {
                         {JobCategories.map((category, index) => (
                             <li key={index} className="flex items-center gap-3">
                                 <input type="checkbox" className="scale-125"
-                                    onClick={()=> handleCategoryFilters(category)}
+                                    onClick={() => handleCategoryFilters(category)}
                                     checked={selectedCategories.includes(category)} />
                                 {category}
                             </li>
@@ -114,7 +114,7 @@ function JobListing() {
                         {JobLocations.map((location, index) => (
                             <li key={index} className="flex items-center gap-3">
                                 <input type="checkbox" className="scale-125"
-                                    onClick={()=> handleLocationFilters(location)}
+                                    onClick={() => handleLocationFilters(location)}
                                     checked={selectedLocations.includes(location)} />
                                 {location}
                             </li>
@@ -141,7 +141,7 @@ function JobListing() {
                                 className={`${currentPage === 1 ? 'opacity-50 pointer-events-none cursor-default' : 'cursor-pointer'}`} />
                         </a>
                         {Array.from({ length: Math.ceil(filteredJobs.length / 6) }).map((_, index) => (
-                            <a href="#job-list">
+                            <a href="#job-list" key={index}>
                                 <button className={`w-10 h-10 flex justify-center items-center border border-gray-300 rounded cursor-pointer
                                     ${currentPage === index + 1 ? 'bg-blue-100 text-blue-500' : 'text-gray-500'}`}
                                     onClick={() => setCurrentPage(index + 1)}>
