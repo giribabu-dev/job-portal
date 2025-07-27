@@ -5,7 +5,8 @@ import Navbar from "../components/navbar/Navbar";
 import { assets } from "../assets/assets";
 import kconvert from "k-convert";
 import moment from "moment";
-import "./ApplyJob.css";
+import JobCard from "../components/jobCard/JobCard";
+import Footer from "../components/footer/Footer";
 
 function ApplyJob() {
 
@@ -14,20 +15,32 @@ function ApplyJob() {
     const { jobs } = useContext(AppContext)
 
     const [jobData, setJobData] = useState(null)
+    const [similarJobs, setSimilarJobs] = useState(null);
 
     const fetchJob = async () => {
         const data = jobs.filter(job => job._id === id);
         if (data.length !== 0) {
             setJobData(data[0]);
-            console.log(data[0])
         }
+    };
+
+    const fetchMoreJobs = async () => {
+        const moreJobs = jobs.filter(job => job._id !== id && job.companyId._id === jobData.companyId._id);
+        setSimilarJobs(moreJobs.slice(0, 4));
     };
 
     useEffect(() => {
         if (jobs.length > 0) {
-            fetchJob()
+            fetchJob();
         }
     }, [id, jobs]);
+
+    useEffect(() => {
+        if (jobData) {
+            fetchMoreJobs();
+        }
+    }, [jobData]);
+
 
     return (
         <div>
@@ -71,14 +84,25 @@ function ApplyJob() {
                                 </div>
 
                                 <div className="flex flex-col lg:flex-row justify-between items-start">
+                                    {/* Left Section */}
                                     <div className="w-full lg:w-2/3">
                                         <h2 className="font-bold text-2xl mb-4">Job Description</h2>
-                                        <div dangerouslySetInnerHTML={{__html: jobData.description}} className="rich-text"></div>
+                                        <div dangerouslySetInnerHTML={{ __html: jobData.description }} className="rich-text"></div>
                                         <button className="bg-blue-600 text-white p-2.5 px-10 rounded cursor-pointer mt-10">Apply Now</button>
+                                    </div>
+
+                                    {/* Right Section */}
+                                    <div className="w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5">
+                                        <h2>More jobs from {jobData.companyId.name}</h2>
+                                        {similarJobs && similarJobs.map((job, index) => (
+                                            <JobCard key={index} job={job} />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <Footer />
                     </>
                 ) : (
                     <div className="min-h-screen flex items-center justify-center">
