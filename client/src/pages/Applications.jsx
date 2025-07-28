@@ -2,6 +2,7 @@ import Navbar from "../components/navbar/Navbar";
 import { useState } from "react";
 import { assets, jobsApplied } from "../assets/assets";
 import moment from "moment";
+import Footer from "../components/footer/Footer";
 
 function Applications() {
 
@@ -40,28 +41,28 @@ function Applications() {
                 </div>
 
                 <h2 className="text-xl font-semibold mb-4">Applied Jobs</h2>
-                <table className="min-w-full bg-white border rounded-lg">
+                <table className="min-w-full bg-white border rounded-lg border-gray-300">
                     <thead>
                         <tr>
-                            <th className="border-b text-left py-3 px-4">Company</th>
-                            <th className="border-b text-left py-3 px-4">Job Title</th>
-                            <th className="border-b text-left py-3 px-4 max-sm:hidden">Location</th>
-                            <th className="border-b text-left py-3 px-4 max-sm:hidden">Date</th>
-                            <th className="border-b text-left py-3 px-4">Status</th>
+                            <th className="border-b border-gray-300 text-left py-3 px-4">Company</th>
+                            <th className="border-b border-gray-300 text-left py-3 px-4">Job Title</th>
+                            <th className="border-b border-gray-300 text-left py-3 px-4 max-sm:hidden">Location</th>
+                            <th className="border-b border-gray-300 text-left py-3 px-4 max-sm:hidden">Date</th>
+                            <th className="border-b border-gray-300 text-left py-3 px-4">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {jobsApplied.map((job, index) => true ? (
                             <tr>
-                                <td className="border-b flex items-center gap-2 py-3 px-4">
+                                <td className="border-b border-gray-300 flex items-center gap-2 py-3 px-4">
                                     <img src={job.logo} alt="" className="w-8 h-8" />
                                     {job.company}
                                 </td>
-                                <td className="border-b py-2 px-4">{job.title}</td>
-                                <td className="border-b py-2 px-4 max-sm:hidden">{job.location}</td>
-                                <td className="border-b py-2 px-4 max-sm:hidden">{moment(job.date).format('ll')}</td>
-                                <td className="border-b py-2 px-4">
-                                    <span className={`${job.status === 'Accepted' ? 'bg-green-100' : job.status === 'Rejected' ? 'bg-red-100' : 'bg-blue-100'}`}>
+                                <td className="border-b border-gray-300 py-2 px-4">{job.title}</td>
+                                <td className="border-b border-gray-300 py-2 px-4 max-sm:hidden">{job.location}</td>
+                                <td className="border-b border-gray-300 py-2 px-4 max-sm:hidden">{moment(job.date).format('ll')}</td>
+                                <td className="border-b border-gray-300 py-2 px-4">
+                                    <span className={`${job.status === 'Accepted' ? 'bg-green-100' : job.status === 'Rejected' ? 'bg-red-100' : 'bg-blue-100'} px-4 py-1.5 rounded`}>
                                         {job.status}
                                     </span>
                                 </td>
@@ -73,6 +74,7 @@ function Applications() {
                     </tbody>
                 </table>
             </div>
+            <Footer />
         </>
     )
 };

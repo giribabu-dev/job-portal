@@ -6,7 +6,7 @@ function JobCard({ job }) {
     const navigate = useNavigate()
 
     return (
-        <div className="border shadow rounded p-6">
+        <div className="border border-gray-300 shadow rounded p-6">
             <div className="flex justify-between items-center">
                 <img src={assets.company_icon} alt="" className="h-8" />
             </div>
