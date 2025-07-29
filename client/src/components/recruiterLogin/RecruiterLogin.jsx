@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { assets } from "../../assets/assets";
+import { AppContext } from "../../context/AppContext";
 
 function RecruiterLogin() {
 
@@ -12,18 +13,40 @@ function RecruiterLogin() {
 
     const [isTextDataSubmitted, setIsTextDataSubmitted] = useState(false)
 
-    const onSubmitHandler = async (e)=> {
+    const { setShowRecruiterLogin } = useContext(AppContext)
+
+    const onSubmitHandler = async (e) => {
         e.preventDefault()
+
+        if (state == 'Sign Up' && !isTextDataSubmitted) {
+            setIsTextDataSubmitted(true)
+        }
     }
+
+    useEffect(()=> {
+        document.body.style.overflow = 'hidden'
+
+        return ()=> {
+            document.body.style.overflow = 'unset'
+        }
+    }, []);
 
     return (
         <div className="absolute top-0 left-0 bottom-0 right-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
-            <form className="relative bg-white p-10 rounded-xl text-slate-500">
+            <form className="relative bg-white p-10 rounded-xl text-slate-500" onSubmit={onSubmitHandler}>
                 <h1 className="text-center font-medium text-2xl text-neutral-700">Recruiter {state}</h1>
                 <p className="text-sm">Welcome back! Please sign in to continue</p>
                 {
                     state === 'Sign Up' && isTextDataSubmitted ?
-                        <></>
+                        <>
+                            <div className="flex items-center gap-4 my-10">
+                                <label htmlFor="image">
+                                    <img src={image ? URL.createObjectURL(image) : assets.upload_area} alt="" className="w-16 rounded-full" />
+                                    <input type="file" id="image" hidden onChange={e => setImage(e.target.files[0])} />
+                                </label>
+                                <p>Upload Company <br /> logo</p>
+                            </div>
+                        </>
                         :
                         <>
                             {state !== 'Login' && (
@@ -47,8 +70,8 @@ function RecruiterLogin() {
                         </>
                 }
 
-                <button className="w-full bg-blue-600 text-white rounded-full py-2 cursor-pointer mt-5">
-                    {state === 'Login' ? 'Login' : 'Create Account'}
+                <button type="submit" className="w-full bg-blue-600 text-white rounded-full py-2 cursor-pointer mt-5">
+                    {state === 'Login' ? 'Login' : isTextDataSubmitted ? 'Create Account' : 'Next'}
                 </button>
                 {
                     state === 'Login' ?
@@ -57,6 +80,7 @@ function RecruiterLogin() {
                         <p className="text-center mt-5">Already have an account? <span className="text-blue-600 cursor-pointer" onClick={() => setState('Login')}>Login</span></p>
                 }
 
+                <img src={assets.cross_icon} alt="" className="absolute top-5 right-5 cursor-pointer" onClick={() => setShowRecruiterLogin(false)} />
             </form>
         </div>
     )
