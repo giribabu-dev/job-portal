@@ -1,7 +1,13 @@
+import {manageJobsData} from "../assets/assets"
+
 function ManageJobs(){
     return (
         <div>
-            <h1>ManageJobs</h1>
+            <div>
+                <table>
+
+                </table>
+            </div>
         </div>
     )
 }
