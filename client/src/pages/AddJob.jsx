@@ -73,7 +73,9 @@ function AddJob() {
                     className="w-full border-2 px-3 py-2 border-gray-300 rounded sm:w-[120px]" />
             </div>
 
-            <button className="w-30 bg-black text-white py-3 mt-4 cursor-pointer rounded">Post Job</button>
+            <button className="w-30 bg-green-600 text-white py-2 mt-4 cursor-pointer rounded">
+                Post Job
+            </button>
         </form>
     )
 }
