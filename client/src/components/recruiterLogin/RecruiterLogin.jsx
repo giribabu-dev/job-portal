@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { assets } from "../../assets/assets";
 import { AppContext } from "../../context/AppContext";
+import axios from "axios";
 
 function RecruiterLogin() {
 
@@ -13,7 +14,7 @@ function RecruiterLogin() {
 
     const [isTextDataSubmitted, setIsTextDataSubmitted] = useState(false)
 
-    const { setShowRecruiterLogin } = useContext(AppContext)
+    const { setShowRecruiterLogin, backendUrl } = useContext(AppContext)
 
     const onSubmitHandler = async (e) => {
         e.preventDefault()
@@ -21,12 +22,24 @@ function RecruiterLogin() {
         if (state == 'Sign Up' && !isTextDataSubmitted) {
             setIsTextDataSubmitted(true)
         }
+
+        try {
+            if (state === 'Login') {
+                const { data } = await axios.post(backendUrl + '/api/company/login', { email, password })
+                if (data.success) {
+                    console.log(data)
+                }
+            }
+        }
+        catch (error) {
+
+        }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         document.body.style.overflow = 'hidden'
 
-        return ()=> {
+        return () => {
             document.body.style.overflow = 'unset'
         }
     }, []);
