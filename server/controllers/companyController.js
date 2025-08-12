@@ -57,7 +57,7 @@ export const loginCompany = async (req, res) => {
         const isCompanyExists = await Company.findOne({ email })
 
         if (!isCompanyExists) {
-            return res.json({ success: false, message: "Invalid email or password" })
+            return res.json({ success: false, message: "Invalid Email, Please register!" })
         }
 
         const isPasswordMatch = await bcrypt.compare(password, isCompanyExists.password)
@@ -74,7 +74,7 @@ export const loginCompany = async (req, res) => {
             })
         }
         else {
-            res.json({ success: false, message: 'Invalid email or password' })
+            res.json({ success: false, message: 'Invalid Password' })
         }
     }
     catch (error) {

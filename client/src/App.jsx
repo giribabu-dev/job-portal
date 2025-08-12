@@ -14,6 +14,8 @@ import "quill/dist/quill.snow.css";
 
 import { AppContext } from "./context/AppContext";
 
+import toast, { Toaster } from 'react-hot-toast';
+
 function App() {
 
   const { showRecruiterLogin } = useContext(AppContext)
@@ -21,6 +23,7 @@ function App() {
   return (
     <div>
       {showRecruiterLogin && <RecruiterLogin />}
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/apply-job/:id" element={<ApplyJob />} />
