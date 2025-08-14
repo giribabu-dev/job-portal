@@ -1,6 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Quill from "quill";
-import {JobCategories, JobLocations} from "../assets/assets";
+import { JobCategories, JobLocations } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function AddJob() {
 
@@ -13,6 +16,33 @@ function AddJob() {
     const editorRef = useRef(null)
     const quillRef = useRef(null)
 
+    const { backendUrl, companyToken } = useContext(AppContext)
+
+    const onSubmitHandler = async (e) => {
+        e.preventDefault()
+
+        try {
+            const description = quillRef.current.root.innerHTML
+
+            const { data } = await axios.post(backendUrl + "/api/company/post-job",
+                { title, description, category, location, level, salary },
+                { headers: { token: companyToken } })
+
+            if (data.success) {
+                toast.success(data.message)
+                setTitle('')
+                setSalary(0)
+                quillRef.current.root.innerHTML = ""
+            }
+            else {
+                toast.error(data.message)
+            }
+        }
+        catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     useEffect(() => {
         // Initiate Quill only once
         if (!quillRef.current && editorRef.current) {
@@ -23,7 +53,7 @@ function AddJob() {
     }, [])
 
     return (
-        <form className="container p-4 flex flex-col items-start w-full gap-3">
+        <form className="container p-4 flex flex-col items-start w-full gap-3" onSubmit={onSubmitHandler}>
             <div className="w-full">
                 <p className="mb-2">Job Title</p>
                 <input type="text" placeholder="Type here" value={title} required onChange={e => setTitle(e.target.value)}
@@ -42,7 +72,7 @@ function AddJob() {
                     <p className="mb-2">Job Category</p>
                     <select value={category} onChange={e => setCategory(e.target.value)}
                         className="w-full border-2 px-3 py-2 border-gray-300 rounded">
-                        {JobCategories.map((category, index)=> (
+                        {JobCategories.map((category, index) => (
                             <option key={index} value={category}>{category}</option>
                         ))}
                     </select>
@@ -51,7 +81,7 @@ function AddJob() {
                     <p className="mb-2">Job Location</p>
                     <select value={location} onChange={e => setLocation(e.target.value)}
                         className="w-full border-2 px-3 py-2 border-gray-300 rounded">
-                        {JobLocations.map((location, index)=> (
+                        {JobLocations.map((location, index) => (
                             <option key={index} value={location}>{location}</option>
                         ))}
                     </select>
