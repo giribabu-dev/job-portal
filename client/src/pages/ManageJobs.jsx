@@ -34,8 +34,29 @@ function ManageJobs() {
         }
     };
 
+    // Function to change Job Visibility
+    const changeJobVisibility = async (id) => {
+        try {
+            const { data } = await axios.post(backendUrl + '/api/company/change-visibility',
+                { id },
+                { headers: { token: companyToken } }
+            )
+
+            if (data.success) {
+                fetchCompanyJobs()
+                console.log(data)
+            }
+            else {
+                toast.error(data.message)
+            }
+        }
+        catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     useEffect(() => {
-        if(companyToken){
+        if (companyToken) {
             fetchCompanyJobs()
         }
     }, [companyToken]);
@@ -56,7 +77,7 @@ function ManageJobs() {
                     </thead>
                     <tbody>
                         {
-                            manageJobsData.map((job, index) => (
+                            jobs.length > 0 && jobs.map((job, index) => (
                                 <tr key={index} className="border-b border-gray-300 text-gray-700">
                                     <td className="py-2 px-4 max-sm:hidden">{index + 1}</td>
                                     <td className="py-2 px-4">{job.title}</td>
@@ -64,7 +85,7 @@ function ManageJobs() {
                                     <td className="py-2 px-4 max-sm:hidden">{job.location}</td>
                                     <td className="py-2 px-4 text-center">{job.applicants}</td>
                                     <td className="py-2 px-4 text-center">
-                                        <input type="checkbox" className="scale-125" />
+                                        <input type="checkbox" className="scale-125" checked={job.visible} onChange={() => changeJobVisibility(job._id)} />
                                     </td>
                                 </tr>
                             ))
