@@ -1,11 +1,22 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 function Dashboard() {
 
-    const { companyData } = useContext(AppContext)
+    const { companyData, setCompanyToken, setCompanyData } = useContext(AppContext)
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        setCompanyToken(null)
+        localStorage.removeItem('companyToken')
+        setCompanyData(null)
+        toast.success('Logout successfully')
+        navigate('/')
+    };
 
     return (
         <div className="min-h-screen">
@@ -22,7 +33,7 @@ function Dashboard() {
                                     <img src={companyData.image} alt="" className="w-8 border border-gray-300 rounded-full" />
                                     <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
                                         <ul className="list-none m-0 p-2 bg-white border border-gray-300 rounded-md text-sm">
-                                            <li className="cursor-pointer py-1 px-2 pr-10">Logout</li>
+                                            <li className="cursor-pointer py-1 px-2 pr-10" onClick={handleLogout}>Logout</li>
                                         </ul>
                                     </div>
                                 </div>

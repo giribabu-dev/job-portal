@@ -155,6 +155,7 @@ export const viewApplicationsPageData = [
 ];
 
 export const jobsData = [
+
     {
         _id: '1',
         title: "Full Stack Developer",
@@ -188,6 +189,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '2',
         title: "Data Scientist",
@@ -221,6 +223,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Data Science",
     },
+
     {
         _id: '3',
         title: "UI/UX Designer",
@@ -254,6 +257,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Designing",
     },
+
     {
         _id: '4',
         title: "DevOps Engineer",
@@ -287,6 +291,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '5',
         title: "Software Engineer",
@@ -320,6 +325,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '6',
         title: "Network Engineer",
@@ -353,6 +359,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Networking",
     },
+
     {
         _id: '7',
         title: "Project Manager",
@@ -386,6 +393,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Management",
     },
+
     {
         _id: '8',
         title: "Mobile App Developer",
@@ -419,6 +427,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '9',
         title: "Cloud Architect",
@@ -452,6 +461,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '10',
         title: "Technical Writer",
@@ -485,6 +495,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Marketing",
     },
+
     {
         _id: '11',
         title: "Cybersecurity Analyst",
@@ -518,6 +529,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Cybersecurity",
     },
+
     {
         _id: '12',
         title: "Business Analyst",
@@ -551,6 +563,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Management",
     },
+
     {
         _id: '13',
         title: "Marketing Specialist",
@@ -584,6 +597,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Marketing",
     },
+
     {
         _id: '14',
         title: "Data Scientist",
@@ -617,6 +631,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Data Science",
     },
+
     {
         _id: '15',
         title: "UX/UI Designer",
@@ -650,6 +665,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Design",
     },
+    
     {
         _id: '16',
         title: "DevOps Engineer",
@@ -683,6 +699,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '17',
         title: "Sales Manager",
@@ -716,6 +733,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Marketing",
     },
+
     {
         _id: '18',
         title: "Human Resources Specialist",
@@ -749,6 +767,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Management",
     },
+
     {
         _id: '19',
         title: "Content Marketing Manager",
@@ -782,6 +801,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Marketing",
     },
+
     {
         _id: '20',
         title: "Graphic Designer",
@@ -815,6 +835,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Design",
     },
+
     {
         _id: '21',
         title: "Software Tester",
@@ -848,6 +869,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Programming",
     },
+
     {
         _id: '22',
         title: "Network Security Engineer",
@@ -881,6 +903,7 @@ export const jobsData = [
         date: 1729681667114,
         category: "Cybersecurity",
     },
+
     {
         _id: '23',
         title: "Cloud Engineer",

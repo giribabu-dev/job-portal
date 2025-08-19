@@ -30,14 +30,13 @@ function RecruiterLogin() {
         try {
             if (state === 'Login') {
                 const response = await axios.post(backendUrl + '/api/company/login', { email, password })
-                console.log(response)
                 if (response.data.success) {
                     setCompanyData(response.data.company)
                     setCompanyToken(response.data.token)
                     localStorage.setItem("companyToken", response.data.token)
                     setShowRecruiterLogin(false)
                     navigate('/dashboard')
-                    toast.success('Login Successful')
+                    toast.success('Login successful')
                 }
                 else {
                     toast.error(response.data.message)
@@ -52,7 +51,6 @@ function RecruiterLogin() {
 
                 const { data } = await axios.post(backendUrl + '/api/company/register', formData)
                 if (data.success) {
-                    console.log(data)
                     setCompanyData(data.company)
                     setCompanyToken(data.token)
                     localStorage.setItem('companyToken', data.token)
@@ -66,7 +64,6 @@ function RecruiterLogin() {
             }
         }
         catch (error) {
-            console.log(error)
             toast.error(error.message)
         }
     }

@@ -10,7 +10,7 @@ function ManageJobs() {
 
     const navigate = useNavigate()
 
-    const [jobs, setJobs] = useState(false)
+    const [jobs, setJobs] = useState([])
 
     const { backendUrl, companyToken } = useContext(AppContext)
 
@@ -23,7 +23,6 @@ function ManageJobs() {
 
             if (data.success) {
                 setJobs(data.jobsData.reverse())
-                console.log(data.jobsData)
             }
             else {
                 toast.error(data.message)
@@ -44,7 +43,7 @@ function ManageJobs() {
 
             if (data.success) {
                 fetchCompanyJobs()
-                console.log(data)
+                toast.success('Job visibility changed successfully')
             }
             else {
                 toast.error(data.message)
