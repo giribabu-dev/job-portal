@@ -6,19 +6,28 @@ import { v2 as cloudinary } from "cloudinary";
 // Get user data
 export const getUserData = async (req, res) => {
 
-    const userId = req.auth.userId
-
     try {
+
+        //  Clerk auth
+        const { userId } = req.auth()
+        console.log("userId", userId)
+
+        if (!userId) {
+            return res.status(401).json({ success: false, message: "Unauthorized" })
+        }
+
+        // Fetch user from database
         const user = await User.findById(userId)
+        console.log("user", user)
 
         if (!user) {
-            return res.json({ success: false, message: "User not found" })
+            return res.status(404).json({ success: false, message: "User not found" })
         }
 
         res.json({ success: true, user })
     }
     catch (error) {
-        res.json({ success: false, message: error.message })
+        res.status(500).json({ success: false, message: error.message })
     }
 }
 
