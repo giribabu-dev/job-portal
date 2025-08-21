@@ -5,11 +5,10 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Get user data
 export const getUserData = async (req, res) => {
-
     try {
 
         //  Clerk auth
-        const { userId } = req.auth()
+        const { userId } = req.auth();
         console.log("userId", userId)
 
         if (!userId) {
@@ -17,7 +16,7 @@ export const getUserData = async (req, res) => {
         }
 
         // Fetch user from database
-        const user = await User.findById(userId)
+        const user = await User.findById({_id: userId})
         console.log("user", user)
 
         if (!user) {

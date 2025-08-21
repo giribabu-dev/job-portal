@@ -10,6 +10,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { clerkMiddleware } from "@clerk/express";
+import bodyParser from "body-parser";
 
 // Initialize Express
 const app = express()
@@ -23,26 +24,31 @@ await connectCloudinary()
 
 // Middlewares
 app.use(cors())
-app.use(express.json())
-app.use(clerkMiddleware())
+app.use(express.json())  // For normal routes
+app.use(clerkMiddleware())  // Protect Clerk routes
 
 // Routes
 app.get('/', (req, res) => res.send('API Working!'))
 
+// Debug Sentry
 app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
 })
 
-app.post('/webhooks', clerkWebhooks)
+// Clerk Webhook (must be raw body)
+app.post('/webhooks', bodyParser.raw({ type: "application/json" }), clerkWebhooks)
+
+// API Routes
+// app.post('/webhooks', clerkWebhooks)
 app.use('/api/company', companyRoutes)
 app.use('/api/jobs', jobRoutes)
 app.use('/api/users', userRoutes)
 
-// Port
-const PORT = process.env.PORT || 5000
-
+// Error handler for Sentry
 Sentry.setupExpressErrorHandler(app);
 
+// Start Server
+const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
