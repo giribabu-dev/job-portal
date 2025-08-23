@@ -2,16 +2,12 @@ import { createContext, useState, useEffect } from "react";
 import { jobsData } from "../assets/assets";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useUser, useAuth } from "@clerk/clerk-react";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-
-    const { user } = useUser()
-    const { getToken } = useAuth()
 
     const [searchFilter, setSearchFilter] = useState({
         title: '',
@@ -98,11 +94,11 @@ export const AppContextProvider = (props) => {
         }
     }, [companyToken]);
 
-    useEffect(() => {
-        if (user) {
-            fetchUserData()
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     if (user) {
+    //         fetchUserData()
+    //     }
+    // }, [user]);
 
     const value = {
         searchFilter, setSearchFilter,
