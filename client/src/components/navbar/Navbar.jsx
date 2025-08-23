@@ -6,28 +6,39 @@ import { useContext } from "react";
 function Navbar() {
 
     const navigate = useNavigate()
-    const { setShowRecruiterLogin } = useContext(AppContext)
+    const { setShowRecruiterLogin, setShowUserLogin } = useContext(AppContext)
+
+    const handleRecruiterLogin = () => {
+        setShowRecruiterLogin(true)
+        setShowUserLogin(false)
+    };
+
+    const handleUserLogin = () => {
+        setShowUserLogin(true)
+        setShowRecruiterLogin(false)
+    };
 
     return (
         <div className="shadow py-4">
             <div className="container px-4 2xl:px-20 mx-auto flex justify-between items-center">
                 <img src={assets.logo} alt="" className="cursor-pointer" onClick={() => navigate('/')} />
-               
-                        {/* <div className="flex items-center gap-3">
+
+                {/* <div className="flex items-center gap-3">
                             <Link to={'/applications'}>Applied Jobs</Link>
                             <p> | </p>
                             <p className="max-sm:hidden">Hi, {user.firstName + " " + user.lastName}</p>
                         </div> */}
-                        
-                        <div className="flex gap-4">
-                            <button className="text-gray-600 cursor-pointer" onClick={() => setShowRecruiterLogin(true)}>
-                                Recruiter Login
-                            </button>
-                            <button className="bg-blue-600 text-white rounded-full px-6 sm:px-9 py-1 cursor-pointer">
-                                Login
-                            </button>
-                        </div>
-                
+
+                <div className="flex gap-4">
+                    <button className="text-gray-600 cursor-pointer" onClick={handleRecruiterLogin}>
+                        Recruiter Login
+                    </button>
+                    <button className="bg-blue-600 text-white rounded-full px-6 sm:px-9 py-1 cursor-pointer"
+                        onClick={handleUserLogin}>
+                        Login
+                    </button>
+                </div>
+
             </div>
         </div>
     )

@@ -18,6 +18,7 @@ export const AppContextProvider = (props) => {
 
     const [jobs, setJobs] = useState([])
 
+    const [showUserLogin, setShowUserLogin] = useState(false)
     const [showRecruiterLogin, setShowRecruiterLogin] = useState(false)
 
     const [companyToken, setCompanyToken] = useState(null)
@@ -104,6 +105,7 @@ export const AppContextProvider = (props) => {
         searchFilter, setSearchFilter,
         isSearched, setIsSearched,
         jobs, setJobs,
+        showUserLogin, setShowUserLogin,
         showRecruiterLogin, setShowRecruiterLogin,
         companyToken, setCompanyToken,
         companyData, setCompanyData,

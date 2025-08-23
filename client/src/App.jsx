@@ -6,6 +6,7 @@ import "quill/dist/quill.snow.css";
 import Home from "./pages/Home";
 import ApplyJob from "./pages/ApplyJob";
 import Applications from "./pages/Applications";
+import UserLogin from "./components/userLogin/UserLogin";
 
 import RecruiterLogin from "./components/recruiterLogin/RecruiterLogin";
 import Dashboard from "./pages/Dashboard";
@@ -17,7 +18,7 @@ import { AppContext } from "./context/AppContext";
 
 function App() {
 
-  const { showRecruiterLogin, companyToken } = useContext(AppContext)
+  const { showRecruiterLogin, companyToken, showUserLogin } = useContext(AppContext)
 
   const ProtectedRoute = ({ token, children }) => {
     if (!token) {
@@ -29,6 +30,7 @@ function App() {
   return (
     <div>
       {showRecruiterLogin && <RecruiterLogin />}
+      {showUserLogin && <UserLogin />}
       <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
