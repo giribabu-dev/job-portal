@@ -109,14 +109,14 @@ function JobListing() {
 
                 {/* Location Filter */}
                 <div className={showFilter ? "" : "max-lg:hidden"}>
-                    <h4 className="font-medium text-lg py-4 pt-14">Search by Location</h4>
+                    <h4 className="font-medium text-lg py-4 pt-10">Search by Location</h4>
                     <ul className="text-gray-600 space-y-4">
                         {JobLocations.map((location, index) => (
                             <li key={index} className="flex items-center gap-3">
                                 <input type="checkbox" className="scale-125"
                                     onClick={() => handleLocationFilters(location)}
                                     checked={selectedLocations.includes(location)} />
-                                {location}
+                                <span>{location}</span>
                             </li>
                         ))}
                     </ul>
