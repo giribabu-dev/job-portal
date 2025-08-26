@@ -2,6 +2,65 @@ import User from "../models/User.js";
 import JobApplication from "../models/JobApplication.js";
 import Job from "../models/Job.js";
 import { v2 as cloudinary } from "cloudinary";
+import bcrypt from "bcrypt";
+
+// New user registration
+export const registerUser = async (req, res) => {
+    try {
+        const { firstName, lastName, email, password } = req.body;
+
+        if (!firstName || !lastName || !email || !password) {
+            return res.json({ success: false, message: "Missing details" })
+        }
+
+        const isUserExists = await User.find({ email })
+        if (isUserExists) {
+            return res.json({ success: false, message: "User already registered" })
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashPassword = await bcrypt.hash(password, salt)
+
+        const user = await new User.create({
+            firstName,
+            lastName,
+            email,
+            password: hashPassword
+        })
+        await user.save()
+
+        return res.status(201).json({ success: true, message: "User registered successfully" })
+    }
+    catch (error) {
+        return res.status(500).json({ success: false, message: error.message })
+    }
+}
+
+// User login
+export const userLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body
+
+        if (!email || !password) {
+            return res.json({ success: false, message: "Missing details" })
+        }
+
+        const isUserExists = await User.find({ email })
+        if (!isUserExists) {
+            return res.json({ success: false, message: "User not found" })
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, isUserExists.password)
+        if (!isPasswordMatch) {
+            return res.json({ success: false, message: "Invalid password" })
+        }
+
+        return res.json({ success: true, message: "Login successful" })
+    }
+    catch (error) {
+        return res.status(500).json({ success: false, message: error.message })
+    }
+}
 
 // Get user data
 export const getUserData = async (req, res) => {
@@ -16,7 +75,7 @@ export const getUserData = async (req, res) => {
         }
 
         // Fetch user from database
-        const user = await User.findById({_id: userId})
+        const user = await User.findById({ _id: userId })
         console.log("user", user)
 
         if (!user) {

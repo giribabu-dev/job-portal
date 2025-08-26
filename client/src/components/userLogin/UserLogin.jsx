@@ -1,16 +1,37 @@
 import { useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
+import axios from "axios";
 
 function UserLogin() {
 
     const [state, setState] = useState("Login")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-    const { setShowUserLogin } = useContext(AppContext)
+    const { setShowUserLogin, backendUrl } = useContext(AppContext)
+
+    const handleUserForm = async (e) => {
+        e.preventDefault()
+
+        try {
+            if (state === "Login") {
+                const response = await axios.post(backendUrl + "/api/users/login", { email, password })
+            }
+            else {
+                const response = await axios.post(backendUrl + "/api/users/register", { firstName, lastName, email, password })
+            }
+        }
+        catch (error) {
+
+        }
+    }
 
     return (
         <div className="absolute top-0 right-0 bottom-0 left-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
-            <form className="relative bg-white p-10 rounded-xl text-slate-500">
+            <form onSubmit={handleUserForm} className="relative bg-white p-10 rounded-xl text-slate-500">
                 <h1 className="text-center font-medium text-2xl text-neutral-700">User {state}</h1>
                 <p className="text-sm">Welcome back! Please sign in to continue</p>
 
@@ -19,11 +40,13 @@ function UserLogin() {
                         <>
                             <div className="flex items-center gap-2 border rounded-full px-4 py-2 my-5">
                                 <img src={assets.person_icon} alt="Person icon" />
-                                <input type="text" placeholder="First Name" required className="outline-none text-sm" />
+                                <input type="text" placeholder="First Name" required className="outline-none text-sm"
+                                    onChange={e => setFirstName(e.target.value)} />
                             </div>
                             <div className="flex items-center gap-2 border rounded-full px-4 py-2">
                                 <img src={assets.person_icon} alt="Person icon" />
-                                <input type="text" placeholder="Last Name" required className="outline-none text-sm" />
+                                <input type="text" placeholder="Last Name" required className="outline-none text-sm"
+                                    onChange={e => setLastName(e.target.value)} />
                             </div>
                         </>
                     )
@@ -31,15 +54,17 @@ function UserLogin() {
 
                 <div className="flex items-center gap-2 border rounded-full px-4 py-2 my-5">
                     <img src={assets.email_icon} alt="Email icon" />
-                    <input type="email" placeholder="Email Id" required className="outline-none text-sm" />
+                    <input type="email" placeholder="Email Id" required className="outline-none text-sm"
+                        onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="flex items-center gap-2 border rounded-full px-4 py-2">
                     <img src={assets.lock_icon} alt="Lock icon" />
-                    <input type="password" placeholder="Password" required className="outline-none text-sm" />
+                    <input type="password" placeholder="Password" required className="outline-none text-sm"
+                        onChange={e => setPassword(e.target.value)} />
                 </div>
                 {state === "Login" && <p className="text-blue-600 text-sm cursor-pointer">Forgot password?</p>}
 
-                <button className="w-full bg-blue-600 rounded-full text-white py-2 my-5">
+                <button className="w-full bg-blue-600 rounded-full text-white py-2 my-5" type="submit">
                     {state === "Login" ? 'Login' : 'Signup'}
                 </button>
 
