@@ -14,14 +14,14 @@ export const registerUser = async (req, res) => {
         }
 
         const isUserExists = await User.find({ email })
-        if (isUserExists) {
+        if (isUserExists.length > 0) {
             return res.json({ success: false, message: "User already registered" })
         }
 
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, salt)
 
-        const user = await new User.create({
+        const user = await new User({
             firstName,
             lastName,
             email,
@@ -45,11 +45,12 @@ export const userLogin = async (req, res) => {
             return res.json({ success: false, message: "Missing details" })
         }
 
-        const isUserExists = await User.find({ email })
-        if (!isUserExists) {
+        const isUserExists = await User.findOne({ email })
+        if (isUserExists.length == 0) {
             return res.json({ success: false, message: "User not found" })
         }
 
+        // Compare plain password with stored hash
         const isPasswordMatch = await bcrypt.compare(password, isUserExists.password)
         if (!isPasswordMatch) {
             return res.json({ success: false, message: "Invalid password" })

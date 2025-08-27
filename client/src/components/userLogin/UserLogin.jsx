@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function UserLogin() {
 
@@ -13,6 +15,8 @@ function UserLogin() {
 
     const { setShowUserLogin, backendUrl } = useContext(AppContext)
 
+    const navigate = useNavigate()
+
     const handleUserForm = async (e) => {
         e.preventDefault()
 
@@ -22,6 +26,20 @@ function UserLogin() {
             }
             else {
                 const response = await axios.post(backendUrl + "/api/users/register", { firstName, lastName, email, password })
+                const data = response.data;
+                if (data.success) {
+                    toast.success(data.message)
+
+                    setFirstName("")
+                    setLastName("")
+                    setEmail("")
+                    setPassword("")
+
+                    navigate("/")
+                }
+                else {
+                    toast.error(data.message)
+                }
             }
         }
         catch (error) {
@@ -40,12 +58,12 @@ function UserLogin() {
                         <>
                             <div className="flex items-center gap-2 border rounded-full px-4 py-2 my-5">
                                 <img src={assets.person_icon} alt="Person icon" />
-                                <input type="text" placeholder="First Name" required className="outline-none text-sm"
+                                <input type="text" placeholder="First Name" required className="outline-none text-sm" value={firstName}
                                     onChange={e => setFirstName(e.target.value)} />
                             </div>
                             <div className="flex items-center gap-2 border rounded-full px-4 py-2">
                                 <img src={assets.person_icon} alt="Person icon" />
-                                <input type="text" placeholder="Last Name" required className="outline-none text-sm"
+                                <input type="text" placeholder="Last Name" required className="outline-none text-sm" value={lastName}
                                     onChange={e => setLastName(e.target.value)} />
                             </div>
                         </>
@@ -54,17 +72,17 @@ function UserLogin() {
 
                 <div className="flex items-center gap-2 border rounded-full px-4 py-2 my-5">
                     <img src={assets.email_icon} alt="Email icon" />
-                    <input type="email" placeholder="Email Id" required className="outline-none text-sm"
+                    <input type="email" placeholder="Email Id" required className="outline-none text-sm" value={email}
                         onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="flex items-center gap-2 border rounded-full px-4 py-2">
                     <img src={assets.lock_icon} alt="Lock icon" />
-                    <input type="password" placeholder="Password" required className="outline-none text-sm"
+                    <input type="password" placeholder="Password" required className="outline-none text-sm" value={password}
                         onChange={e => setPassword(e.target.value)} />
                 </div>
                 {state === "Login" && <p className="text-blue-600 text-sm cursor-pointer">Forgot password?</p>}
 
-                <button className="w-full bg-blue-600 rounded-full text-white py-2 my-5" type="submit">
+                <button className="w-full bg-blue-600 rounded-full text-white py-2 my-5 cursor-pointer" type="submit">
                     {state === "Login" ? 'Login' : 'Signup'}
                 </button>
 
