@@ -22,20 +22,29 @@ function UserLogin() {
 
         try {
             if (state === "Login") {
-                const response = await axios.post(backendUrl + "/api/users/login", { email, password })
+                const { data } = await axios.post(backendUrl + "/api/users/login", { email, password })
+                if (data.success) {
+                    console.log(data)
+                    localStorage.setItem("userToken", data.token)
+                    toast.success(data.message)
+                    setShowUserLogin(false)
+                    navigate("/")
+                    setEmail("")
+                    setPassword("")
+                }
+                else {
+                    toast.error(data.message)
+                }
             }
             else {
-                const response = await axios.post(backendUrl + "/api/users/register", { firstName, lastName, email, password })
-                const data = response.data;
+                const { data } = await axios.post(backendUrl + "/api/users/register", { firstName, lastName, email, password })
                 if (data.success) {
-                    toast.success(data.message)
-
                     setFirstName("")
                     setLastName("")
                     setEmail("")
                     setPassword("")
-
-                    navigate("/")
+                    toast.success(data.message)
+                    setState("Login")
                 }
                 else {
                     toast.error(data.message)
@@ -43,7 +52,7 @@ function UserLogin() {
             }
         }
         catch (error) {
-
+            toast.error(error.message)
         }
     }
 

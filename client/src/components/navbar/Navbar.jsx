@@ -19,9 +19,9 @@ function Navbar() {
     };
 
     return (
-        <div className="shadow py-4">
+        <div className="shadow py-4 sticky top-0 bg-white z-50">
             <div className="container px-4 2xl:px-20 mx-auto flex justify-between items-center">
-                <img src={assets.logo} alt="" className="cursor-pointer" onClick={() => navigate('/')} />
+                <img src={assets.logo} alt="Logo" className="cursor-pointer" onClick={() => navigate('/')} />
 
                 {/* <div className="flex items-center gap-3">
                             <Link to={'/applications'}>Applied Jobs</Link>

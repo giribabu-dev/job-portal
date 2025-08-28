@@ -1,7 +1,7 @@
 import express from "express";
 import { registerCompany, loginCompany, getCompanyData, postJob, getCompanyJobApplicants, getCompanyPostedJobs, changeJobApplicationStatus, changeVisibility } from "../controllers/companyController.js";
 import upload from "../config/multer.js";
-import {protectCompany} from "../middleware/authMiddleware.js";
+import { protectCompany } from "../middleware/authMiddleware.js";
 
 const router = express.Router()
 

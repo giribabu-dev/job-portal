@@ -3,15 +3,18 @@ import JobApplication from "../models/JobApplication.js";
 import Job from "../models/Job.js";
 import { v2 as cloudinary } from "cloudinary";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // New user registration
 export const registerUser = async (req, res) => {
-    try {
-        const { firstName, lastName, email, password } = req.body;
 
-        if (!firstName || !lastName || !email || !password) {
-            return res.json({ success: false, message: "Missing details" })
-        }
+    const { firstName, lastName, email, password } = req.body;
+
+    if (!firstName || !lastName || !email || !password) {
+        return res.json({ success: false, message: "Missing details" })
+    }
+
+    try {
 
         const isUserExists = await User.find({ email })
         if (isUserExists.length > 0) {
@@ -29,7 +32,7 @@ export const registerUser = async (req, res) => {
         })
         await user.save()
 
-        return res.status(201).json({ success: true, message: "User registered successfully" })
+        return res.status(201).json({ success: true, message: "Registration Successful" })
     }
     catch (error) {
         return res.status(500).json({ success: false, message: error.message })
@@ -38,15 +41,16 @@ export const registerUser = async (req, res) => {
 
 // User login
 export const userLogin = async (req, res) => {
+
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        return res.json({ success: false, message: "Missing details" })
+    }
+
     try {
-        const { email, password } = req.body
-
-        if (!email || !password) {
-            return res.json({ success: false, message: "Missing details" })
-        }
-
         const isUserExists = await User.findOne({ email })
-        if (isUserExists.length == 0) {
+        if (!isUserExists) {
             return res.json({ success: false, message: "User not found" })
         }
 
@@ -56,7 +60,14 @@ export const userLogin = async (req, res) => {
             return res.json({ success: false, message: "Invalid password" })
         }
 
-        return res.json({ success: true, message: "Login successful" })
+        // Generate JWT Token
+        const token = jwt.sign(
+            { id: isUserExists._id },
+            process.env.USER_JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        return res.status(200).json({ success: true, message: "Login successful", token })
     }
     catch (error) {
         return res.status(500).json({ success: false, message: error.message })
