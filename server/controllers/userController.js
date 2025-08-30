@@ -78,23 +78,8 @@ export const userLogin = async (req, res) => {
 export const getUserData = async (req, res) => {
     try {
 
-        //  Clerk auth
-        const { userId } = req.auth();
-        console.log("userId", userId)
-
-        if (!userId) {
-            return res.status(401).json({ success: false, message: "Unauthorized" })
-        }
-
-        // Fetch user from database
-        const user = await User.findById({ _id: userId })
-        console.log("user", user)
-
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" })
-        }
-
-        res.json({ success: true, user })
+       const userData = req.user;
+        res.json({ success: true, userData })
     }
     catch (error) {
         res.status(500).json({ success: false, message: error.message })

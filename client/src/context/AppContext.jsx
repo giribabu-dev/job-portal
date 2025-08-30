@@ -24,6 +24,7 @@ export const AppContextProvider = (props) => {
     const [companyToken, setCompanyToken] = useState(null)
     const [companyData, setCompanyData] = useState(null)
 
+    const [userToken, setUserToken] = useState(null)
     const [userData, setUserData] = useState(null)
     const [userApplications, setUserApplications] = useState([])
 
@@ -59,27 +60,24 @@ export const AppContextProvider = (props) => {
     // Function to fetch user data
     const fetchUserData = async () => {
         try {
-            const token = await getToken()
 
             const { data } = await axios.get(backendUrl + "/api/users/user",
-                { headers: { Authorization: `Bearer ${token}` } }
+                { headers: { Authorization: `Bearer ${userToken}` } }
             )
 
             if (data.success) {
-                console.log(data)
-                setUserData(data.user)
+                setUserData(data.userData)
             }
             else {
-                console.log(data)
                 toast.error(data.message)
             }
         }
         catch (error) {
-            console.log(error)
             toast.error(error.message)
         }
     };
 
+    // Fetch company token from local storage
     useEffect(() => {
         fetchJobs()
 
@@ -95,11 +93,19 @@ export const AppContextProvider = (props) => {
         }
     }, [companyToken]);
 
-    // useEffect(() => {
-    //     if (user) {
-    //         fetchUserData()
-    //     }
-    // }, [user]);
+    // Fetch user token from local storage
+    useEffect(()=> {
+        let storeUserToken = localStorage.getItem("userToken")
+        if(storeUserToken){
+            setUserToken(storeUserToken)
+        }
+    }, []);
+
+    useEffect(() => {
+        if (userToken) {
+            fetchUserData()
+        }
+    }, [userToken]);
 
     const value = {
         searchFilter, setSearchFilter,
@@ -109,7 +115,9 @@ export const AppContextProvider = (props) => {
         showRecruiterLogin, setShowRecruiterLogin,
         companyToken, setCompanyToken,
         companyData, setCompanyData,
-        backendUrl
+        backendUrl,
+        userToken, setUserToken,
+        userData, setUserData
     }
 
     return (

@@ -1,16 +1,15 @@
 import { assets } from "../../assets/assets";
-// import "./Hero.css";
 import { useContext, useRef } from "react";
 import { AppContext } from "../../context/AppContext";
 
 function Hero() {
 
-    const { setSearchFilter, setIsSearched, searchFilter } = useContext(AppContext);
+    const { setSearchFilter, setIsSearched, searchFilter, userData } = useContext(AppContext);
 
     const titleRef = useRef(null);
     const locationRef = useRef(null);
 
-    const onSearch = ()=> {
+    const onSearch = () => {
         setSearchFilter({
             title: titleRef.current.value,
             location: locationRef.current.value
@@ -42,17 +41,22 @@ function Hero() {
                 </div>
             </div>
 
-            <div className="border border-gray-300 shadow-md mx-2 mt-5 p-6 rounded-md flex">
-                <div className="flex items-center justify-center gap-10 lg:gap-16 flex-wrap">
-                    <p className="font-medium">Trusted by</p>
-                    <img src={assets.microsoft_logo} alt="" className="h-6" />
-                    <img src={assets.walmart_logo} alt="" className="h-6" />
-                    <img src={assets.accenture_logo} alt="" className="h-6" />
-                    <img src={assets.samsung_logo} alt="" className="h-6" />
-                    <img src={assets.amazon_logo} alt="" className="h-6" />
-                    <img src={assets.adobe_logo} alt="" className="h-6" />
-                </div>
-            </div>
+            {
+                !userData && (
+                    <div className="border border-gray-300 shadow-md mx-2 mt-5 p-6 rounded-md flex">
+                        <div className="flex items-center justify-center gap-10 lg:gap-16 flex-wrap">
+                            <p className="font-medium">Trusted by</p>
+                            <img src={assets.microsoft_logo} alt="" className="h-6" />
+                            <img src={assets.walmart_logo} alt="" className="h-6" />
+                            <img src={assets.accenture_logo} alt="" className="h-6" />
+                            <img src={assets.samsung_logo} alt="" className="h-6" />
+                            <img src={assets.amazon_logo} alt="" className="h-6" />
+                            <img src={assets.adobe_logo} alt="" className="h-6" />
+                        </div>
+                    </div>
+                )
+            }
+
         </div>
     )
 };
