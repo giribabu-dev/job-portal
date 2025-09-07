@@ -6,29 +6,17 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
     return (
-        // <div className="container px-4 2xl:px-20 mx-auto flex items-center justify-between gap-4 py-3 mt-20">
-        //     <img src={assets.logo} alt="" width={160} />
-        //     <p className="flex-1 border-l border-gray-400 pl-4 text-sm text-gray-500 max-sm:hidden">
-        //         Copyright @giriskillhub | All rights reserved.
-        //     </p>
-        //     <div className="flex gap-2.5">
-        //         <img src={assets.facebook_icon} alt="" width={38} />
-        //         <img src={assets.twitter_icon} alt="" width={38} />
-        //         <img src={assets.instagram_icon} alt="" width={38} />
-        //     </div>
-        // </div>
-        <div className="container p-4 2xl:px-20">
-            <div className="grid grid-cols-3">
-                <div className="">
+        <div className="container p-4 2xl:px-20 mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3">
+
+                {/* Left section */}
+                <div className="col-span-12 md:col-span-3">
                     <div className="mb-5">
                         <img src={assets.logo} alt="Logo" width={160} />
                     </div>
                     <div>
                         <h6 className="font-semibold mb-2 text-base">Connect with us</h6>
                         <div className="flex gap-3">
-                            {/* <img src={assets.facebook_icon} alt="Facebook icon" width={35} /> */}
-                            {/* <img src={assets.instagram_icon} alt="Instagram icon" width={35} /> */}
-                            {/* <img src={assets.twitter_icon} alt="Twitter icon" width={35} /> */}
                             <FaFacebookSquare className="text-gray-500" />
                             <FaInstagramSquare className="text-gray-400" />
                             <FaSquareXTwitter className="text-gray-500" />
@@ -36,7 +24,9 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 space-y-3 text-[15px]">
+
+                {/* Middle section */}
+                <div className="col-span-12 md:col-span-5 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-y-3 text-[15px]">
                     <div>About Us</div>
                     <div>Help Center</div>
                     <div>Privacy Policy</div>
@@ -51,16 +41,20 @@ function Footer() {
                     <div>Trust & Safety</div>
                     <div>Credits</div>
                 </div>
-                <div className="border border-gray-200 rounded p-4">
-                    <h2 className="text-[18px] font-bold">Apply on the go</h2>
-                    <p className="text-[14px]">Get real-time job updates on our App</p>
-                    <div className="flex gap-3 mt-4">
-                        <a href="">
-                            <img src={assets.play_store} alt="" className="h-9" />
-                        </a>
-                        <a href="">
-                            <img src={assets.app_store} alt="" className="h-9" />
-                        </a>
+
+                {/* Right section */}
+                <div className="col-span-12 md:col-span-4">
+                    <div className="border border-gray-200 rounded p-5">
+                        <h2 className="text-[18px] font-bold">Apply on the go</h2>
+                        <p className="text-[14px]">Get real-time job updates on our App</p>
+                        <div className="flex gap-3 mt-4">
+                            <a href="">
+                                <img src={assets.play_store} alt="" className="h-9" />
+                            </a>
+                            <a href="">
+                                <img src={assets.app_store} alt="" className="h-9" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
