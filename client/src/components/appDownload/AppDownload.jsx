@@ -2,7 +2,7 @@ import {assets} from "../../assets/assets";
 
 function AppDownload(){
     return (
-        <div className="container 2xl:px-20 px-4 mx-auto my-20">
+        <div className="container 2xl:px-20 p-4 mx-auto">
             <div className="relative bg-gradient-to-r from-violet-50 to-purple-50 p-12 sm:p-24 lg:p-32 rounded-lg">
                 <div>
                     <h1 className="text-2xl sm:text-4xl font-bold mb-8 max-w-md">

@@ -5,19 +5,21 @@ import AppDownload from "../components/appDownload/AppDownload";
 import Footer from "../components/footer/Footer";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import JobCategories from "../components/JobCategories";
 
 function Home() {
 
     const { userData } = useContext(AppContext)
 
     return (
-        <div>
+        <>
             <Navbar />
             <Hero />
             <JobListing />
+            <JobCategories />
             {!userData && <AppDownload />}
             <Footer />
-        </div>
+        </>
     )
 };
 
